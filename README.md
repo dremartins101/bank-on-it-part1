@@ -16,7 +16,7 @@ classDiagram
         +CheckingAccount(balance)
         +main() void
         +menu() String
-        +start() String
+        +start() void
         +getBalance() double
         +getBalanceString() String
         +setBalance(balance) void
@@ -30,15 +30,14 @@ classDiagram
         -interestRate: double
         +main(*)
         +calcInterest() void
-        +setInterestRate() void
-        +getInterestRate() void
+        +setInterestRate(rate) void
+        +getInterestRate() double
     }
 
     class User {
         <<abstract>>
         -userName: String
         -PIN: String
-        +login() boolean
         +login(userName, PIN) boolean
         +setUserName(userName) void
         +getUserName() String
@@ -58,10 +57,9 @@ classDiagram
         +getReport() String
     }
 
-    CheckingAccount ..|> HasMenu : Implements
-    User ..|> HasMenu : Implements
-    SavingsAccount --|> CheckingAccount : Extends
-    Customer --|> User : Extends
-    Customer --> CheckingAccount
-    Customer --> SavingsAccount
+    %% Hierarchy Connections
+    CheckingAccount ..|> HasMenu : implements
+    User ..|> HasMenu : implements
+    SavingsAccount --|> CheckingAccount : extends
+    Customer --|> User : extends
 ```
