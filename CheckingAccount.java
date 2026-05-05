@@ -1,11 +1,11 @@
 import java.util.*;
-import java.in.*;
+import java.io.*;
 
 public class CheckingAccount implements HasMenu, Serializable {
 	double balance;
 
 	public static void main(String[] args){
-		CheckingAccount ca = new ChceckingAccount();
+		CheckingAccount ca = new CheckingAccount();
 		ca.start();
 	} // end main
 	
@@ -13,7 +13,7 @@ public class CheckingAccount implements HasMenu, Serializable {
 		this.balance = 0d;
 	} // end constructor
 	
-	public CHeckingAccount(double balance){
+	public CheckingAccount(double balance){
 		this.balance = balance;
 	} // end constructor
 	
@@ -37,85 +37,64 @@ public class CheckingAccount implements HasMenu, Serializable {
 			response = menu();
 			if (response.equals("0")){
 				keepGoing = false;
-			} else if (response.equals(1)){
+			} else if (response.equals("1")){
 				System.out.println(" Checking balance... ");
-				this.checkBalance();
-			} else if (response.equals(2)){
+				checkBalance();
+			} else if (response.equals("2")){
 				System.out.println(" Making a deposit... ");
-				this.makeDeposit();
-			} else if (response.equals(3)){
+				makeDeposit();
+			} else if (response.equals("3")){
 				System.out.println(" Making a withdrawal... ");
-				this.makeWithdrawal();
+				makeWithdrawal();
 			} else {
-				System.out.println(" Please enter 0, 1, 2, or 3);
+				System.out.println("Please enter 0, 1, 2, or 3");
 			} // end if
 		} // end while
 	} // end start
 	
 
-	public double getBalance(){
-		return this.balance;
-	} // end getBalance
-	
-	
 	public String getBalanceString(){
-		String result = String.format("$%.02f", this.balance);
-		return result;
-	} // end getBalanceString
+        return String.format("$%.2f", this.balance);
+    }
 
+    public void checkBalance(){
+        System.out.println("Current balance: " + this.getBalanceString()); // added parens
+    }
 
-	public void setBalance(double balance){
-		this.balance = balance;
-	} // end setBalance
+    private double getDouble(){
+        Scanner input = new Scanner(System.in);
+        try {
+            return Double.parseDouble(input.nextLine());
+        } catch (Exception e){
+            System.out.println("Not a legal input. Changing to 0");
+            return 0.0;
+        }
+    }
+
+    public void makeDeposit(){
+        System.out.print("How much to deposit? ");
+        double deposit = getDouble();
+        this.balance += deposit; // removed "this." from local var
+        System.out.println("New balance: " + getBalanceString());
+    }
+
+    public void makeWithdrawal(){
+        System.out.print("How much to withdraw? ");
+        double withdrawal = getDouble();
+        if (withdrawal > this.balance){
+            System.out.println("Insufficient funds");
+        } else {
+            this.balance -= withdrawal; // removed "this."
+        }
+        System.out.println("New balance: " + getBalanceString());
+    }
+
+        public double getBalance() {
+	       	return balance;
+       	}
+    public void setBalance(double b) {
+	    this.balance = b;
+    }
 	
-	public void checkBalance(){
-		System.out.print("Current balance: ");
-		System.out.println(this.getBalanceString);
-	} // end checkBalance
-	
-	private double getDouble(){
-		Scanner input = new Scanner(System.in);
-		String resultString = input.nextLine();
-		double result = 0d;
-		try {
-			result = Double.parseDouble(resultString);
-		} catch (Exception e){
-			System.out.println("Not a legal input. Changing to 0");
-			result = 0d;
-		} // end try
-		return result;
-	} // end getDouble
-
-
-
-	public void makeDeposit(){
-		System.out.print("How much to deposit? ");
-		double deposit = this.getDouble();
-		this.balance += this.deposit;
-		System.out.println("New balance: " + this.getBalanceString());
-	} // end makeDeposit
-	
-	public void makeWithdrawal(){
-		System.out.print("How much to withdraw? ");
-		double withdrawal = this.getDouble();
-		if (withdrawal > this.balance){
-			System.out.println("Insufficient funds");
-		} else {
-			this.balance -= this.withdrawal;
-		} // end if
-		System.out.println("New balance: " + this.getBalanceString());
-	} // end makeWithdrawal
-
-	
-
-
-
 } // end class def
-	
-
-
-
-
-
-
 

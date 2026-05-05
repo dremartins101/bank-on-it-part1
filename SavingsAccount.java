@@ -1,4 +1,5 @@
-import java.io.Serializable;
+import java.util.*;
+import java.io.*;
 
 public class SavingsAccount extends CheckingAccount implements Serializable{
 	private double interestRate = 0.05;

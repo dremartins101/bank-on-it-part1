@@ -14,7 +14,7 @@ testAdmin: Admin.class
 	java Admin
 
 testCustomer: Customer.class
-	java CUstomer
+	java Customer
 
 testChecking: CheckingAccount.class
 	java CheckingAccount
